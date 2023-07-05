@@ -1,0 +1,31 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_title %}{{ request.user.username }}{% endblock dashboard_title %}
+
+{% block dashboard_content %}
+<div class="my-3">
+    <div class="row rounded">
+        <div class="col-md-3">
+            <img src="{{ profile.pic.url }}" alt="{{ request.user.username }}" class="large-cover-img">
+        </div>
+        <div class="col-md-9 shadow-sm p-3 bg-body-tertiary">
+            <div class="row mb-3">
+                <div class="col">
+                    <h1>{{ request.user.first_name }} {{ request.user.last_name }}</h1>
+                    <h5>{{ request.user.username }} @ <a href="mailto:{{ request.user.email }}" class="text-decoration-none text-dark">{{ request.user.email }}</a></h5>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <h5>Bio:</h5>
+                <div class="col"><p class="fw-light text-break">{{ profile.bio }}</p></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <p class="fw-light">Joined on {{ request.user.date_joined }}</p>
+                    <p class="fw-light">Last logged in {{ request.user.last_login }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock dashboard_content %}

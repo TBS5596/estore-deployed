@@ -1,0 +1,31 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_title %}Inbox{% endblock dashboard_title %}
+
+{% load crispy_forms_tags %}
+
+{% block dashboard_content %}
+<div class="p-2">
+    {% for conversation in conversations %}
+    <div class="row my-1">
+        <div class="col bg-body-secondary rounded p-3">
+            <a href="{% url 'conversation:detail' conversation.id %}" class="text-dark text-decoration-none">
+                <div class="row">
+                    <div class="col-md-1">
+                        <img src="{{ conversation.item.image.url }}" alt="img" class="img-fluid">
+                    </div>
+                    <div class="col-md-11">
+                        {% for member in conversation.members.all %}
+                        {% if member != request.user %}
+                            <p class="text-dark"><strong>{{ member.username }}</strong> | {{ conversation.modified_at }}</p>
+                            <p class="text-dark">{{ conversation.item.name }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock dashboard_content %}

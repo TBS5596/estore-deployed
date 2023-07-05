@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    {% block dashboard_title %}{% endblock dashboard_title %}
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <nav class="nav bg-body-secondary">
+        <a class="nav-link text-uppercase text-dark" href="{% url 'dashboard:dashboard' %}">Profile [{{ request.user.username }}]</a>
+        <a class="nav-link text-uppercase text-dark" href="{% url 'conversation:inbox' %}">Inbox</a>
+        <a class="nav-link text-uppercase text-dark" href="{% url 'dashboard:items' %}">My Items</a>
+        <a class="nav-link text-uppercase text-dark" href="{% url 'cart:cart' %}">My Cart</a>
+        <a class="nav-link text-uppercase text-dark" href="{% url 'cart:orders' %}">My Orders</a>
+    </nav>
+    {% block dashboard_content %}{% endblock dashboard_content %}
+</div>
+{% endblock content %}

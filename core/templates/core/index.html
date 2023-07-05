@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div class="newest-items mx-auto my-3">
+    <h5 class="p-3 mb-2 bg-body-tertiary">Newest Items</h5>
+    <div class="row d-flex justify-content-center">
+        {% for item in items %}
+        <div class="col-md-3 ">
+            <div class="row">
+                <a href="{% url 'item:detail' item.id %}">
+                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-cover-img">
+                </a>
+            </div>
+            <div class="row">
+                <div class="col py-3">
+                    <p class="text-start"><a href="{% url 'item:detail' item.id %}" class="text-decoration-none text-dark">{{ item.name }}</a></p>
+                </div>
+                <div class="col py-3">
+                    <p class="text-end">K{{ item.price }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="categories mx-auto my-3">
+    <h5 class="p-3 mb-2 bg-body-tertiary">Categories</h5>
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-3">
+            <p class="text-center p-2"><a href="{% url 'item:items' %}?category={{ category.id }}" class="text-dark text-decoration-none"><strong>{{ category.name }}</strong> ({{ category.items.count }})</a></p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

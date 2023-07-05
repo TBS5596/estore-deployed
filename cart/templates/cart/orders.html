@@ -1,0 +1,40 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_title %}Orders{% endblock dashboard_title %}
+
+{% block dashboard_content %}
+<div style="margin-top: 30px; margin-bottom: 30px;">
+    <table class="table" id="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Ordered</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td><a href="{% url 'item:detail' order.cart.item.id %}"><img src="{{ order.cart.item.image.url }}" alt="{{ order.cart.item.name }}" class="small-item-cover-img"></a></td>
+                    <td><a href="{% url 'item:detail' order.cart.item.id %}" class="text-decoration-none text-dark">{{ order.cart.item.name }}</a></td>
+                    <td>{{ order.cart.quantity }}</td>
+                    <td>K{{ order.cart.total_price }}</td>
+                    <td>{{ order.ordered_on }}</td>
+                    <td>
+                        <a href="" class="text-dark text-decoration-underline">View</a>
+                    </td>
+                </tr>  
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let table = new DataTable('#table');
+</script>
+{% endblock dashboard_content %}

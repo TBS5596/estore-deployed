@@ -1,0 +1,38 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_title %}My Items{% endblock dashboard_title %}
+
+{% block dashboard_content %}
+<div style="margin-top: 30px; margin-bottom: 30px;">
+    <table class="table" id="myitemstable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td><a href="{% url 'item:detail' item.id %}"><img src="{{ item.image.url }}" alt="{{ item.name }}" class="small-item-cover-img"></a></td>
+                    <td><a href="{% url 'item:detail' item.id %}" class="text-decoration-none text-dark">{{ item.name }}</a></td>
+                    <td>{{ item.description }}</td>
+                    <td>K{{ item.price }}</td>
+                    <td>
+                        <a href="{% url 'item:edit' item.id %}" class="text-success text-decoration-none">Update</a> | <a href="{% url 'item:delete' item.id %}" class="text-danger text-decoration-none">Delete</a>
+                    </td>
+                </tr>  
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let table = new DataTable('#myitemstable');
+</script>
+{% endblock dashboard_content %}

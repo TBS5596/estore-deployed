@@ -1,0 +1,34 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_title %}Conversation{% endblock dashboard_title %}
+
+{% load crispy_forms_tags %}
+
+{% block dashboard_content %}
+<div class="p-3">
+    {% for message in conversation.messages.all %}
+    <div class="row mb-3 d-flex {% if message.created_by == request.user %} justify-content-end {% else %} ustify-content-start {% endif %}">
+        <div class="col-md-4 {% if message.created_by == request.user %} bg-info-subtle {% else %} bg-body-secondary {% endif %} rounded">
+            <div class="row">
+                <div class="col-md-2 pt-2">
+                    <img src="{{ message.created_by.profile.pic.url }}" alt="pic" class="img-fluid rounded">
+                </div>
+                <div class="col-md-10">
+                    <p><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
+                    <hr>
+                    <p>{{ message.content }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <form action="." method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Type your message here..." aria-label="content" aria-describedby="button-addon2" name="content" id="content">
+            <button class="btn btn-primary" type="submit" id="button-addon2">Send</button>
+        </div>
+    </form>
+</div>
+{% endblock dashboard_content %}

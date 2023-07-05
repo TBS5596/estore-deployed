@@ -1,0 +1,56 @@
+.nav-logo {
+    width: 50px;
+    height: 100%;
+}
+
+.newest-items, .categories, .my-items {
+    width: 90vw;
+}
+
+.item-cover-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.asteriskField {
+    display: none;
+}
+
+.form-1 {
+    width: 25vw;
+}
+
+.form-2 {
+    width: 40vw;
+}
+
+.browse {
+    width: 97vw;
+}
+
+.item-details {
+    width: 97vw;
+}
+
+.large-cover-img {
+    width: 100%;
+    height: 540px;
+    object-fit: cover;
+}
+
+.small-item-cover-img {
+    width: 100%;
+    height: 75px;
+    object-fit: cover;
+}
+
+@media(max-width:600px) {
+    .item-cover-img {
+        height: 150px;
+    }
+
+    .form-1, .form-2 {
+        width: 90vw;
+    }
+}
