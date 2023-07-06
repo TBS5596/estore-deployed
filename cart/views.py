@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Cart, Order
 from item.models import Item
 
-from .forms import AddToCartForm, AddToOrderForm
+from .forms import AddToOrderForm
 
 @login_required
 def index(request):
@@ -18,15 +18,12 @@ def index(request):
 def add(request, pk):
     item = get_object_or_404(Item, pk=pk)
     if request.method == 'POST':
-        form = AddToCartForm(request.POST)
-        if form.is_valid():
-            cart_item = Cart.objects.create(item=Item, user=request.user, quantity=form.cleaned_data['quantity'])
-            print(f'before calc @s {cart_item.id} {cart_item.item_id} {cart_item.quantity} {cart_item.total_price}')
-            cart_item.cal_total()
-            print(f'after calc @s {cart_item.id} {cart_item.item_id} {cart_item.quantity} {cart_item.total_price}')
-            cart_item.save()
-            print(f'saved @s {cart_item.id} {cart_item.item_id} {cart_item.quantity} {cart_item.total_price}')
-            return redirect('cart:cart', pk=pk)
+        quantity = request.POST.get('quantity')
+        print(quantity)
+        cart_item = Cart.objects.create(item=item, user=request.user, quantity=quantity)
+        cart_item.cal_total()
+        cart_item.save()
+        return redirect('cart:cart')
     return redirect('item:detail', pk=pk)
 
 @login_required

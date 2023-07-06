@@ -37,7 +37,7 @@
                             <form action="{% url 'cart:add' item.id %}" method="post">
                                 {% csrf_token %}
                                 <div class="input-group">
-                                    <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="button-addon2">
+                                    <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="button-addon2" name="quantity">
                                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Add to Cart</button>
                                 </div>
                             </form>
