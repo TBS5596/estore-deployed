@@ -3,29 +3,34 @@
 {% block dashboard_title %}{{ request.user.username }}{% endblock dashboard_title %}
 
 {% block dashboard_content %}
-<div class="my-3">
-    <div class="row rounded">
-        <div class="col-md-3">
-            <img src="{{ profile.pic.url }}" alt="{{ request.user.username }}" class="large-cover-img">
-        </div>
-        <div class="col-md-9 shadow-sm p-3 bg-body-tertiary">
-            <div class="row mb-3">
-                <div class="col">
-                    <h1>{{ request.user.first_name }} {{ request.user.last_name }}</h1>
-                    <h5>{{ request.user.username }} @ <a href="mailto:{{ request.user.email }}" class="text-decoration-none text-dark">{{ request.user.email }}</a></h5>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <h5>Bio:</h5>
-                <div class="col"><p class="fw-light text-break">{{ profile.bio }}</p></div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    <p class="fw-light">Joined on {{ request.user.date_joined }}</p>
-                    <p class="fw-light">Last logged in {{ request.user.last_login }}</p>
-                </div>
-            </div>
-        </div>
+<div class="row">
+    <div class="col-md-3 rounded-full">
+        <img src="{{ profile.pic.url }}" alt="{{ request.user.username }}" class=" profile-pic" style="width: 100%; height: 200px; object-fit: cover;">
+    </div>
+    <div class="col-md-9">
+        <h1>{{ request.user.first_name }} {{ request.user.last_name }}</h1>
+        <br>
+        <p><i class="bi bi-person-square"></i> {{ request.user.username }}</p>
+        <p><i class="bi bi-envelope-at"></i> <a href="mailto:{{ request.user.email }}" class="text-decoration-none text-dark">{{ request.user.email }}</a></p>
+        <p><i class="bi bi-telephone"></i>
+            {% if profile.phone_number is not None %}
+            <a href="telto:{{ profile.phone_number }}" class="text-decoration-none text-dark">{{ profile.phone_number }}</a>
+            {% else %}
+            phone number not recorded
+            {% endif %} 
+        </p>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-3 mb-1">
+        <p><i class="bi bi-calendar3"></i> {{ profile.date_of_birth }}</p>
+        <p><i class="bi bi-calendar-event"></i> {{ request.user.date_joined }}</p>
+        <p><i class="bi bi-geo-alt"></i> {{ profile.address }}</p>
+    </div>
+    <div class="col-md-9 mb-1">
+        <h5><i class="bi bi-fingerprint"></i> Who am I?</h5>
+        <p class="fw-light text-break">{{ profile.bio|linebreaksbr }}</p>
     </div>
 </div>
 {% endblock dashboard_content %}

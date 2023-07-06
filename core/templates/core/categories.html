@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Categories{% endblock title %}
+
+{% block content %}
+<ul>
+    {% for category in categories %}
+    <li><a class="text-dark" href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}">{{ category.name }}</a></li>
+    {% endfor %}
+</ul>
+
+<div class="categories mx-auto my-3">
+    <h5 class="p-3 mb-2 bg-body-tertiary">Categories</h5>
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-3">
+            <p class="text-center p-2"><a href="{% url 'item:items' %}?category={{ category.id }}" class="text-dark text-decoration-none"><strong>{{ category.name }}</strong> ({{ category.items.count }})</a></p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

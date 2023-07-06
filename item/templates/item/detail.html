@@ -3,66 +3,68 @@
 {% block title %}{{ item.name }}{% endblock title %}
 
 {% block content %}
-<div class="item-details mx-auto">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-3">
-            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="large-cover-img">
-        </div>
-        <div class="col-md-8 shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-            <div class="row mb-3">
-                <div class="col">
-                    <h2>{{ item.name }}</h2>
-                    <h5>K{{ item.price }}</h5>
-                    <p>{{ item.created_by.username }} [<a href="mailto:{{ item.created_by.email }}?subject={{ item.name }}" class="text-dark">{{ item.created_by.email }}</a>]</p>
-                </div>
+<div class="p-2 mt-2">
+    <div class="item-details mx-auto">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-3">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="large-cover-img">
             </div>
-            <div class="row mb-3">
-                <div class="col">
-                    {% if  item.description is not None %}
-                    <h5>Description:</h5>
-                    <p class="fw-light text-break">{{ item.description }}</p>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col">
-                    {% if item.created_by == request.user %}
-                    <div class="d-flex justify-content-between">
-                        <a href="{% url 'item:edit' item.id %}" class="btn btn-success">Update</a>
-                        <a href="{% url 'item:delete' item.id %}" class="btn btn-danger">Delete</a>
+            <div class="col-md-8 shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+                <div class="row mb-3">
+                    <div class="col">
+                        <h2>{{ item.name }}</h2>
+                        <h5>K{{ item.price }}</h5>
+                        <p>{{ item.created_by.username }} [<a href="mailto:{{ item.created_by.email }}?subject={{ item.name }}" class="text-dark">{{ item.created_by.email }}</a>]</p>
                     </div>
-                    {% else %}
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-md-4">
-                            <form action="{% url 'cart:add' item.id %}" method="post">
-                                {% csrf_token %}
-                                <div class="input-group">
-                                    <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="button-addon2" name="quantity">
-                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Add to Cart</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-md-2">
-                            <a href="{% url 'conversation:new' item.id %}" class="btn btn-danger">Contact seller</a>
-                        </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        {% if  item.description is not None %}
+                        <h5>Description:</h5>
+                        <p class="fw-light text-break">{{ item.description|linebreaksbr }}</p>
+                        {% endif %}
                     </div>
-                    {% endif %}
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        {% if item.created_by == request.user %}
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'item:edit' item.id %}" class="btn btn-success"><i class="bi bi-plus-circle"></i></a>
+                            <a href="{% url 'item:delete' item.id %}" class="btn btn-danger"><i class="bi bi-x-circle"></i></a>
+                        </div>
+                        {% else %}
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-md-4">
+                                <form action="{% url 'cart:add' item.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" placeholder="Quantity" aria-label="Quantity" aria-describedby="button-addon2" name="quantity">
+                                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Add to Cart</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="{% url 'conversation:new' item.id %}" class="btn btn-danger">Contact seller</a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <hr>
-    <div class="row mb-4">
-        <h6 class="mb-3">Related items:</h6>
-        {% for item in related_items %}
-        <div class="col-md-1">
-            <div class="row">
-                <a href="{% url 'item:detail' item.id %}">
-                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="small-item-cover-img">
-                </a>
+        <hr>
+        <div class="row mb-4">
+            <h6 class="mb-3">Related items:</h6>
+            {% for item in related_items %}
+            <div class="col-md-1">
+                <div class="row">
+                    <a href="{% url 'item:detail' item.id %}">
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="small-item-cover-img">
+                    </a>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock content %}

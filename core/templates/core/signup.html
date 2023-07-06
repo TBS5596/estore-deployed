@@ -5,23 +5,25 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="form-2 m-auto shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <form action="{% url 'core:signup' %}" method="post">
-        {% csrf_token %}
-        
-        {{ form|crispy }}
+<div class="p-2 mt-2">
+    <div class="form-2 m-auto shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+        <form action="{% url 'core:signup' %}" method="post">
+            {% csrf_token %}
+            
+            {{ form|crispy }}
 
-        {% if form.errors or form.non_field_errors %}
-            <div class="alert alert-danger text-center">
-                {% for field in form  %}
-                    {{ field.errors }}                  
-                {% endfor %}
-                {{ form.non_field_errors }}
-            </div>          
-        {% endif %}
-        <div class="d-grid">
-            <button type="submit" class="btn btn-dark">Sign up</button>
-        </div>
-    </form>
+            {% if form.errors or form.non_field_errors %}
+                <div class="alert alert-danger text-center">
+                    {% for field in form  %}
+                        {{ field.errors }}                  
+                    {% endfor %}
+                    {{ form.non_field_errors }}
+                </div>          
+            {% endif %}
+            <div class="d-grid">
+                <button type="submit" class="btn btn-dark">Sign up</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}

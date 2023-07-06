@@ -5,14 +5,16 @@
 {% endblock title %}
 
 {% block content %}
-<div class="container">
-    <nav class="nav bg-body-secondary">
-        <a class="nav-link text-uppercase text-dark" href="{% url 'dashboard:dashboard' %}">Profile [{{ request.user.username }}]</a>
-        <a class="nav-link text-uppercase text-dark" href="{% url 'conversation:inbox' %}">Inbox</a>
-        <a class="nav-link text-uppercase text-dark" href="{% url 'dashboard:items' %}">My Items</a>
-        <a class="nav-link text-uppercase text-dark" href="{% url 'cart:cart' %}">My Cart</a>
-        <a class="nav-link text-uppercase text-dark" href="{% url 'cart:orders' %}">My Orders</a>
-    </nav>
-    {% block dashboard_content %}{% endblock dashboard_content %}
+<div class="px-2 mt-2">
+    <div class="shadow-sm p-3 bg-body-tertiary mb-3">
+        <nav class="nav bg-dark mb-2">
+            <a class="nav-link text-uppercase text-light" href="{% url 'dashboard:dashboard' %}"><i class="bi bi-person-circle"></i> {{ request.user.username }}</a>
+            <a class="nav-link text-uppercase text-light" href="{% url 'conversation:inbox' %}"><i class="bi bi-inbox"></i> Inbox</a>
+            <a class="nav-link text-uppercase text-light" href="{% url 'dashboard:items' %}"><i class="bi bi-collection"></i> Items</a>
+            <a class="nav-link text-uppercase text-light" href="{% url 'cart:cart' %}"><i class="bi bi-cart"></i> Cart</a>
+            <a class="nav-link text-uppercase text-light" href="{% url 'cart:orders' %}"><i class="bi bi-cart-check"></i> Orders</a>
+        </nav>
+        {% block dashboard_content %}{% endblock dashboard_content %}
+    </div>
 </div>
 {% endblock content %}

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='category', blank=True, null=True)
 
     class Meta:
         ordering = ('name',)
@@ -20,6 +21,7 @@ class Item(models.Model):
     is_sold = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    viewed = models.IntegerField(default=1)
 
     class Meta:
         ordering = ('name',)

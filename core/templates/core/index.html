@@ -3,11 +3,33 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<div class="newest-items mx-auto my-3">
-    <h5 class="p-3 mb-2 bg-body-tertiary">Newest Items</h5>
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for banner in banners %}
+    <div class="carousel-item">
+        <img src="{{ banner.image.url }}" class="d-block w-100" alt="{{ banner.title }}">
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="p-2 mt-2">
+  <div class="categories mx-auto my-3">
+      <h5 class="p-3 mb-2 bg-body-tertiary text-center">Categories</h5>
+      <div class="row d-flex justify-content-center">
+        {% for category in categories %}
+          <div class="col-md-3 shadow-sm p-3 m-3 bg-body-tertiary rounded">
+            <a class="text-dark text-decoration-none text-center mt-3" href="{% url 'item:items' %}?query={{ query }}&category={{ category.id }}"><strong>{{ category.name }}</strong> ({{ category.items.count }})</a>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+
+  <div class="newest-items mx-auto my-3">
+    <h5 class="p-3 mb-2 bg-body-tertiary text-center">Most viewed</h5>
     <div class="row d-flex justify-content-center">
-        {% for item in items %}
-        <div class="col-md-3 ">
+        {% for item in top_viewed_items %}
+        <div class="col-md-2">
             <div class="row">
                 <a href="{% url 'item:detail' item.id %}">
                     <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-cover-img">
@@ -15,10 +37,7 @@
             </div>
             <div class="row">
                 <div class="col py-3">
-                    <p class="text-start"><a href="{% url 'item:detail' item.id %}" class="text-decoration-none text-dark">{{ item.name }}</a></p>
-                </div>
-                <div class="col py-3">
-                    <p class="text-end">K{{ item.price }}</p>
+                    <p class="text-center"><a href="{% url 'item:detail' item.id %}" class="text-decoration-none text-dark">{{ item.name }}</a></p>
                 </div>
             </div>
         </div>
@@ -26,14 +45,27 @@
     </div>
 </div>
 
-<div class="categories mx-auto my-3">
-    <h5 class="p-3 mb-2 bg-body-tertiary">Categories</h5>
-    <div class="row">
-        {% for category in categories %}
-        <div class="col-md-3">
-            <p class="text-center p-2"><a href="{% url 'item:items' %}?category={{ category.id }}" class="text-dark text-decoration-none"><strong>{{ category.name }}</strong> ({{ category.items.count }})</a></p>
-        </div>
-        {% endfor %}
-    </div>
+  <div class="newest-items mx-auto my-3">
+      <h5 class="p-3 mb-2 bg-body-tertiary text-center">Newest</h5>
+      <div class="row d-flex justify-content-center">
+          {% for item in newest_items %}
+          <div class="col-md-2">
+              <div class="row">
+                  <a href="{% url 'item:detail' item.id %}">
+                      <img src="{{ item.image.url }}" alt="{{ item.name }}" class="item-cover-img">
+                  </a>
+              </div>
+              <div class="row">
+                  <div class="col py-3">
+                      <p class="text-start"><a href="{% url 'item:detail' item.id %}" class="text-decoration-none text-dark">{{ item.name }}</a></p>
+                  </div>
+                  <div class="col py-3">
+                      <p class="text-end">K{{ item.price }}</p>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
 </div>
 {% endblock content %}

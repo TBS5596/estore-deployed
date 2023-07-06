@@ -24,7 +24,7 @@
                     <td>{{ cart_item.quantity }}</td>
                     <td>K{{ cart_item.total_price }}</td>
                     <td>
-                        <a href="{% url 'cart:edit' cart_item.id %}" class="text-success text-decoration-none">Update</a> | <a href="{% url 'cart:delete' cart_item.id %}" class="text-danger text-decoration-none">Delete</a>
+                        <a href="{% url 'cart:edit' cart_item.id %}" class="text-success text-decoration-none"><i class="bi bi-plus-circle"></i></a> | <a href="{% url 'cart:delete' cart_item.id %}" class="text-danger text-decoration-none"><i class="bi bi-x-circle"></i></a>
                     </td>
                 </tr>  
             {% endfor %}
