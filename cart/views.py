@@ -29,13 +29,6 @@ def add(request, pk):
 @login_required
 def edit(request, pk):
     cart_item = get_object_or_404(Cart, pk=pk)
-    if request.method == 'POST':
-        form = AddToCartForm(request.POST, instance=cart_item)
-        if form.is_valid():
-            form.save()
-            return redirect('cart:cart')
-    else:
-        form = AddToCartForm(instance=cart_item)
     context = {
         'form':form,
         'cart_item':cart_item
