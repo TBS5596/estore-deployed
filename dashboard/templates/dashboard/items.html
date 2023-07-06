@@ -4,6 +4,8 @@
 
 {% block dashboard_content %}
 <div style="margin-top: 30px; margin-bottom: 30px;">
+    <a href="{% url 'item:new' %}" class="text-decoration-none text-dark">Add Item <i class="bi bi-plus-circle"></i></a>
+    <hr>
     <table class="table" id="myitemstable">
         <thead>
             <tr>
