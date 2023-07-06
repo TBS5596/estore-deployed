@@ -30,7 +30,6 @@ def add(request, pk):
 def edit(request, pk):
     cart_item = get_object_or_404(Cart, pk=pk)
     context = {
-        'form':form,
         'cart_item':cart_item
     }
     return render(request, 'cart/edit.html', context)
