@@ -24,6 +24,13 @@ def items(request):
     }
     return render(request, 'item/items.html', context)
 
+def categories(request):
+    categories = Category.objects.annotate(item_count=Count('items')).order_by('-item_count')
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'item/categories.html', context)
+
 def detail(request, pk):
     item = get_object_or_404(Item, pk=pk)
     related_items = Item.objects.filter(category=item.category, is_sold=False).exclude(pk=pk)[0:10]
